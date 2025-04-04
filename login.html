@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GoldPips Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-card {
+      background-color: #111;
+      border: 1px solid #333;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .form-control {
+      background-color: #000;
+      border: 1px solid #444;
+      color: #fff;
+    }
+
+    .form-control:focus {
+      border-color: #fff;
+      box-shadow: none;
+    }
+
+    .btn-login {
+      background-color: transparent;
+      color: #fff;
+      border: 1px solid #fff;
+      width: 100%;
+    }
+
+    .btn-login:hover {
+      background-color: #fff;
+      color: #000;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .logo img {
+      height: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <div class="logo">
+      <img src="assets/logo.png" alt="GoldPips">
+    </div>
+    <h3 class="text-center mb-4">Welcome Back</h3>
+    <form onsubmit="handleLogin(event)">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="email" placeholder="you@example.com" required />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="••••••••" required />
+      </div>
+      <button type="submit" class="btn btn-login">Login</button>
+    </form>
+  </div>
+
+  <script>
+npm install firebase
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyB-GDb6CYYVl-JD18kwbYavSO4OBmPQ4Ng",
+  authDomain: "goldpips-268f9.firebaseapp.com",
+  projectId: "goldpips-268f9",
+  storageBucket: "goldpips-268f9.firebasestorage.app",
+  messagingSenderId: "508915263478",
+  appId: "1:508915263478:web:e4e71a73f73fe6826089d7",
+  measurementId: "G-2EDL1XVFRC"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+    function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      localStorage.setItem("goldpips_user_email", email);
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>

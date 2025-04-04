@@ -1,0 +1,86 @@
+ @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+}
+
+a, a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.navbar {
+  background-color: #111 !important;
+  border-bottom: 1px solid #333;
+}
+
+.btn-warning,
+.btn-warning:hover,
+.btn-outline-secondary {
+  background-color: transparent !important;
+  border: 1px solid #fff;
+  color: #fff;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #fff !important;
+  color: #000;
+}
+
+.card {
+  background-color: #111;
+  color: #fff;
+  border: 1px solid #333;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card-header {
+  background-color: #666 !important;
+  color: #fff;
+  border-bottom: 1px solid #333;
+}
+
+.table {
+  color: #fff;
+  background-color: #000;
+}
+
+.table th,
+.table td {
+  border-color: #444;
+}
+
+.list-group-item {
+  background-color: #111;
+  color: #fff;
+  border-color: #333;
+}
+
+.input-group .form-control {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+.alert-success {
+  background-color: #1a1a1a;
+  border-color: #333;
+  color: #fff;
+}
+
+.hero {
+  background-color: #000;
+  color: #fff;
+}
+
+footer {
+  background-color: #111;
+  border-top: 1px solid #333;
+}
