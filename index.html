@@ -1,72 +1,91 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GoldPips - Turn Pips into Gold</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GoldPips Login</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-card {
+      background-color: #111;
+      border: 1px solid #333;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .form-control {
+      background-color: #000;
+      border: 1px solid #444;
+      color: #fff;
+    }
+
+    .form-control:focus {
+      border-color: #fff;
+      box-shadow: none;
+    }
+
+    .btn-login {
+      background-color: transparent;
+      color: #fff;
+      border: 1px solid #fff;
+      width: 100%;
+    }
+
+    .btn-login:hover {
+      background-color: #fff;
+      color: #000;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .logo img {
+      height: 40px;
+    }
+  </style>
 </head>
 <body>
-<script>
-  // Extract and store referral code from URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const ref = urlParams.get("ref");
-
-  if (ref) {
-    localStorage.setItem("goldpips_referrer", ref);
-    console.log("Referral saved:", ref);
-  }
-</script>
-
-  <nav class="navbar navbar-dark bg-dark px-4">
-    <a class="navbar-brand" href="#"><img src="assets/logo.png" alt="GoldPips" height="30" /> GoldPips</a>
-    <a class="btn btn-warning" href="dashboard.html">Go to Dashboard</a>
-  </nav>
-
-  <header class="hero bg-black text-white text-center py-5">
-    <h1>Earn 50% ROI Monthly for 6 Months</h1>
-    <p>Invest just ₹500 or ₹1000. Invite friends. Grow your income.</p>
-    <a href="dashboard.html" class="btn btn-warning btn-lg">Start Now</a>
-  </header>
-
-  <section class="container py-5">
-    <h2 class="text-center mb-4">Plans</h2>
-    <div class="row">
-      <div class="col-md-6 mb-4">
-        <div class="card text-center">
-          <div class="card-header bg-warning">Starter Plan</div>
-          <div class="card-body">
-            <h3>₹500</h3>
-            <p>50% ROI monthly for 6 months</p>
-            <p>Total Return: ₹2000</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 mb-4">
-        <div class="card text-center">
-          <div class="card-header bg-warning">Booster Plan</div>
-          <div class="card-body">
-            <h3>₹1000</h3>
-            <p>50% ROI monthly for 6 months</p>
-            <p>Total Return: ₹4000</p>
-          </div>
-        </div>
-      </div>
+  <div class="login-card">
+    <div class="logo">
+      <img src="assets/logo.png" alt="GoldPips">
     </div>
-  </section>
-
-  <footer class="bg-dark text-white text-center py-3">
-    &copy; 2025 GoldPips. All rights reserved.
-  </footer>
+    <h3 class="text-center mb-4">Welcome Back</h3>
+    <form onsubmit="handleLogin(event)">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="email" placeholder="you@example.com" required />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="••••••••" required />
+      </div>
+      <button type="submit" class="btn btn-login">Login</button>
+    </form>
+  </div>
 
   <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const ref = urlParams.get("ref");
-    if (ref) {
-      localStorage.setItem("goldpips_referrer", ref);
-      console.log("Referral saved:", ref);
+    function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      localStorage.setItem("goldpips_user_email", email);
+      window.location.href = "index.html";
     }
   </script>
 </body>
