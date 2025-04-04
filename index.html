@@ -81,7 +81,16 @@
   </div>
 
   <script>
-   
+    function handleLogin(event) {
+      event.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      // Add real authentication here later
+      console.log("Logging in with:", email, password);
+
+      // Simulate login success and redirect
       window.location.href = "home.html";
     }
   </script>
