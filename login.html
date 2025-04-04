@@ -81,28 +81,6 @@
   </div>
 
   <script>
-npm install firebase
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyB-GDb6CYYVl-JD18kwbYavSO4OBmPQ4Ng",
-  authDomain: "goldpips-268f9.firebaseapp.com",
-  projectId: "goldpips-268f9",
-  storageBucket: "goldpips-268f9.firebasestorage.app",
-  messagingSenderId: "508915263478",
-  appId: "1:508915263478:web:e4e71a73f73fe6826089d7",
-  measurementId: "G-2EDL1XVFRC"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
     function handleLogin(e) {
       e.preventDefault();
       const email = document.getElementById("email").value;
