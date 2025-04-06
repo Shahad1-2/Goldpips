@@ -84,3 +84,12 @@ footer {
   background-color: #111;
   border-top: 1px solid #333;
 }
+.card-hover {
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+.card-hover:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
