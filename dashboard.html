@@ -94,7 +94,7 @@
     document.addEventListener("DOMContentLoaded", () => {
       const token = localStorage.getItem("goldpips_token");
       if (!token) {
-        window.location.href = "index.html";
+        window.location.href = "dashboard.html";
         return;
       }
 
@@ -145,7 +145,7 @@
 
     function logout() {
       localStorage.clear();
-      window.location.href = "index.html";
+      window.location.href = "dashboard.html";
     }
 
     function copyLink() {
