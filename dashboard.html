@@ -135,11 +135,11 @@
             </tr>
           `).join("");
         })
-  .catch(err => {
+    .catch(err => {
            console.error(err);
            alert("Session expired. Please log in again.");
            localStorage.clear();
-         
+           window.location.href = "dashboard.html"   
         });
     });
 
