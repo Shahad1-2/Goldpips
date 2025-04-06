@@ -100,7 +100,7 @@
   </div>
 
   <script>
-    function handleRegister(event) {
+    async function handleRegister(event) {
       event.preventDefault();
 
       const email = document.getElementById('reg-email').value;
@@ -108,13 +108,30 @@
       const confirm = document.getElementById('confirm-password').value;
 
       if (password !== confirm) {
-        alert("Passwords do not match.");
+        alert("❌ Passwords do not match.");
         return;
       }
 
-      // Simulate registration success
-      console.log("Registering:", email);
-      window.location.href = "home.html";
+      try {
+        const response = await fetch('http://localhost:5000/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert("✅ " + data.message);
+          // Optionally redirect after successful registration
+          window.location.href = "home.html";
+        } else {
+          alert("⚠️ " + data.message || "Registration failed");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("🚨 Something went wrong. Please try again later.");
+      }
     }
   </script>
 </body>
