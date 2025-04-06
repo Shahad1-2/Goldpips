@@ -1,11 +1,10 @@
-<!-- No changes to the head section -->
-<!-- Main HTML remains mostly the same; script is updated below -->
-
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const token = localStorage.getItem("goldpips_token");
     if (!token) {
-      redirectToLogin();
+      // Handle missing token without redirecting
+      console.warn("No token found.");
+      alert("No session found. Please log in.");
       return;
     }
 
@@ -19,8 +18,8 @@
       .then(data => populateDashboard(data))
       .catch(err => {
         console.error(err);
-        alert("Session expired. Please log in again.");
-        redirectToLogin();
+        alert("Session expired or invalid. Please log in.");
+        // No redirect here
       });
   });
 
@@ -55,11 +54,8 @@
 
   function logout() {
     localStorage.clear();
-    redirectToLogin();
-  }
-
-  function redirectToLogin() {
-    window.location.href = "login.html";
+    // No redirect here
+    alert("Logged out. Please close the browser tab or refresh to log in again.");
   }
 
   function copyLink() {
