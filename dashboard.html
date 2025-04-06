@@ -94,7 +94,7 @@
     document.addEventListener("DOMContentLoaded", () => {
       const token = localStorage.getItem("goldpips_token");
       if (!token) {
-        window.location.href = "dashboard.html";
+        window.location.href = "login.html";
         return;
       }
 
@@ -139,13 +139,13 @@
            console.error(err);
            alert("Session expired. Please log in again.");
            localStorage.clear();
-           window.location.href = "dashboard.html"   
+           window.location.href = "login.html"   
         });
     });
 
     function logout() {
       localStorage.clear();
-      window.location.href = "dashboard.html";
+      window.location.href = "login.html";
     }
 
     function copyLink() {
