@@ -105,7 +105,7 @@
       <button type="submit" class="btn btn-register">Register</button>
     </form>
     <p class="text-center text-small mt-3">
-      Already have an account? <a href="index.html">Login here</a>
+      Already have an account? <a href="login.html">Login here</a>
     </p>
   </div>
 
@@ -126,7 +126,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
   const data = await res.json();
   if (res.ok) {
     alert('Registered successfully!');
-    window.location.href = 'home.html'; // Redirect to login
+    window.location.href = 'login.html'; // Redirect to login
   } else {
     alert(data.message || 'Registration failed');
   }
