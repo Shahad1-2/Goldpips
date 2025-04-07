@@ -110,49 +110,28 @@
   </div>
 
   <script>
-    // Get referral email from URL if available
-    const urlParams = new URLSearchParams(window.location.search);
-    const referrer = urlParams.get("ref");
+document.getElementById('registerForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-    // Display referral message
-    if (referrer) {
-      const refMsg = document.getElementById("referral-msg");
-      refMsg.classList.remove("d-none");
-      refMsg.textContent = "You were referred by: " + referrer;
-    }
+  const username = document.getElementById('username').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
 
-    async function handleRegister(event) {
-      event.preventDefault();
+  const res = await fetch('http://localhost:5000/api/auth/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, email, password })
+  });
 
-      const email = document.getElementById('reg-email').value;
-      const password = document.getElementById('reg-password').value;
-      const confirm = document.getElementById('confirm-password').value;
+  const data = await res.json();
+  if (res.ok) {
+    alert('Registered successfully!');
+    window.location.href = 'index.html'; // Redirect to login
+  } else {
+    alert(data.message || 'Registration failed');
+  }
+});
+</script>
 
-      if (password !== confirm) {
-        alert("❌ Passwords do not match.");
-        return;
-      }
-
-      try {
-        const response = await fetch('http://localhost:5000/api/register', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password, referrer })
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          alert("✅ " + data.message);
-          window.location.href = "home.html"; // Redirect to dashboard or login
-        } else {
-          alert("⚠️ " + (data.message || "Registration failed"));
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("🚨 Something went wrong. Please try again later.");
-      }
-    }
-  </script>
 </body>
 </html>
