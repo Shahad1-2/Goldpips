@@ -17,7 +17,6 @@
       height: 100vh;
       margin: 0;
     }
-
     .register-card {
       background-color: #111;
       border: 1px solid #333;
@@ -27,51 +26,41 @@
       width: 100%;
       max-width: 420px;
     }
-
     .form-control {
       background-color: #000;
       border: 1px solid #444;
       color: #fff;
     }
-
     .form-control:focus {
       border-color: #fff;
       box-shadow: none;
     }
-
     .btn-register {
       background-color: transparent;
       color: #fff;
       border: 1px solid #fff;
       width: 100%;
     }
-
     .btn-register:hover {
       background-color: #fff;
       color: #000;
     }
-
     .logo {
       text-align: center;
       margin-bottom: 1.5rem;
     }
-
     .logo img {
       height: 40px;
     }
-
     .text-small {
       font-size: 0.9rem;
     }
-
     a {
       color: #ccc;
     }
-
     a:hover {
       color: #fff;
     }
-
     #referral-msg {
       font-size: 0.85rem;
       color: #aaa;
@@ -86,7 +75,11 @@
       <img src="logo.png" alt="GoldPips">
     </div>
     <h3 class="text-center mb-4">Create Your Account</h3>
-    <form onsubmit="handleRegister(event)">
+    <form id="registerForm" onsubmit="handleRegister(event)">
+      <div class="mb-3">
+        <label for="reg-username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="reg-username" placeholder="Your username" required />
+      </div>
       <div class="mb-3">
         <label for="reg-email" class="form-label">Email address</label>
         <input type="email" class="form-control" id="reg-email" placeholder="you@example.com" required />
@@ -110,28 +103,33 @@
   </div>
 
   <script>
-document.getElementById('registerForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
+    async function handleRegister(e) {
+      e.preventDefault();
 
-  const username = document.getElementById('username').value;
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
+      const username = document.getElementById('reg-username').value;
+      const email = document.getElementById('reg-email').value;
+      const password = document.getElementById('reg-password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
 
-  const res = await fetch('http://localhost:5000/api/auth/register', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, email, password })
-  });
+      if (password !== confirmPassword) {
+        alert('Passwords do not match!');
+        return;
+      }
 
-  const data = await res.json();
-  if (res.ok) {
-    alert('Registered successfully!');
-    window.location.href = 'login.html'; // Redirect to login
-  } else {
-    alert(data.message || 'Registration failed');
-  }
-});
-</script>
+      const res = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, email, password })
+      });
 
+      const data = await res.json();
+      if (res.ok) {
+        alert('Registered successfully!');
+        window.location.href = 'login.html';
+      } else {
+        alert(data.message || 'Registration failed');
+      }
+    }
+  </script>
 </body>
 </html>
