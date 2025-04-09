@@ -103,7 +103,7 @@
       const data = await res.json();
       if (res.ok) {
         localStorage.setItem('token', data.token);
-        window.location.href = 'dashboards.html';
+        window.location.href = 'dashboard.html';
       } else {
         alert(data.message || 'Login failed');
       }
