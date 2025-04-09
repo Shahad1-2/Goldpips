@@ -124,6 +124,7 @@
 
       const data = await res.json();
       if (res.ok) {
+localStorage.setItem('user', JSON.stringify({ name: data.username, email: data.email }));
         alert('Registered successfully!');
         window.location.href = 'login.html';
       } else {
