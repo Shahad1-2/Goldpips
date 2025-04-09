@@ -201,53 +201,47 @@
   </div>
 
   <script>
-  async function logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    window.location.href = 'index.html';
-  }
-
-  function copyLink() {
-    const refInput = document.getElementById('refLink');
-    refInput.select();
-    document.execCommand('copy');
-    alert('Referral link copied!');
-  }
-
-  document.addEventListener('DOMContentLoaded', async () => {
-    const token = localStorage.getItem('token');
-    const user = JSON.parse(localStorage.getItem('user'));
-
-    if (!token || !user) return window.location.href = 'index.html';
-
-    // ✅ Set username and referral link on page load
-    document.getElementById('userEmail').textContent = `Welcome, ${user.username}`;
-    document.getElementById('refLink').value = `https://goldpips.netlify.app/register.html?ref=${user.referralId}`;
-
-    const res = await fetch('http://localhost:5000/api/dashboard', {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-
-    const data = await res.json();
-    if (res.ok) {
-      document.getElementById('plan').textContent = data.plan;
-      document.getElementById('roi').textContent = data.roi + '%';
-      document.getElementById('referral').textContent = data.referrals;
-      document.getElementById('totalEarned').textContent = '₹ ' + data.totalEarned;
-
-      if (data.referredBy) {
-        document.getElementById('referrerInfo').classList.remove('d-none');
-        document.getElementById('referrerName').textContent = data.referredBy;
-      }
-
-      // Optional rendering logic
-      // renderLevels(data.levels);
-      // renderTransactions(data.transactions);
-    } else {
-      alert('Failed to load dashboard.');
+    async function logout() {
+      localStorage.removeItem('token');
+      window.location.href = 'index.html';
     }
-  });
-</script>
 
+    function copyLink() {
+      const refInput = document.getElementById('refLink');
+      refInput.select();
+      document.execCommand('copy');
+      alert('Referral link copied!');
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const token = localStorage.getItem('token');
+      if (!token) return window.location.href = 'index.html';
+
+      const res = await fetch('http://localhost:5000/api/dashboard', {
+        headers: { Authorization: Bearer ${token} }
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        document.getElementById('plan').textContent = data.plan;
+        document.getElementById('roi').textContent = data.roi + '%';
+        document.getElementById('referral').textContent = data.referrals;
+        document.getElementById('totalEarned').textContent = '₹ ' + data.totalEarned;
+        document.getElementById('userEmail').textContent = Welcome, ${data.email};
+        document.getElementById('refLink').value = data.referralLink || '';
+
+        if (data.referredBy) {
+          document.getElementById('referrerInfo').classList.remove('d-none');
+          document.getElementById('referrerName').textContent = data.referredBy;
+        }
+
+        // Optionally render levels and transactions
+        // renderLevels(data.levels);
+        // renderTransactions(data.transactions);
+      } else {
+        alert('Failed to load dashboard.');
+      }
+    });
+  </script>
 </body>
 </html>
