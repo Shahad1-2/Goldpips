@@ -98,7 +98,7 @@
       <h2 id="userEmail">Welcome, User</h2>
     </div>
 
-    <!-- Individual Stat Boxes -->
+    <!-- Stat Boxes -->
     <div class="row g-4 mb-4">
       <div class="col-sm-6 col-lg-3">
         <div class="card p-3 text-center">
@@ -120,7 +120,7 @@
 
       <div class="col-sm-6 col-lg-3">
         <div class="card p-3 text-center">
-          <div class="card-header">Referral </div>
+          <div class="card-header">Referral</div>
           <div class="card-body">
             <span id="referral" class="highlight"></span>
           </div>
@@ -181,25 +181,41 @@
   </div>
 
   <script>
-document.addEventListener('DOMContentLoaded', async () => {
-  const token = localStorage.getItem('token');
-  if (!token) return window.location.href = 'index.html';
+    async function logout() {
+      localStorage.removeItem('token');
+      window.location.href = 'index.html';
+    }
 
-  const res = await fetch('http://localhost:5000/api/dashboard', {
-    headers: { Authorization: `Bearer ${token}` }
-  });
+    function copyLink() {
+      const refInput = document.getElementById('refLink');
+      refInput.select();
+      document.execCommand('copy');
+      alert('Referral link copied!');
+    }
 
-  const data = await res.json();
-  if (res.ok) {
-    // Update DOM with dashboard data
-    document.getElementById('plan').textContent = data.plan;
-    document.getElementById('roi').textContent = data.roi + '%';
-    document.getElementById('referrals').textContent = data.referrals;
-    document.getElementById('earned').textContent = '$' + data.totalEarned;
-  } else {
-    alert('Failed to load dashboard');
-  }
-});
-</script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const token = localStorage.getItem('token');
+      if (!token) return window.location.href = 'index.html';
+
+      const res = await fetch('http://localhost:5000/api/dashboard', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        document.getElementById('plan').textContent = data.plan;
+        document.getElementById('roi').textContent = data.roi + '%';
+        document.getElementById('referral').textContent = data.referrals;
+        document.getElementById('totalEarned').textContent = '$' + data.totalEarned;
+        document.getElementById('userEmail').textContent = `Welcome, ${data.email}`;
+        document.getElementById('refLink').value = data.referralLink;
+
+        // Optional: populate referral levels or transaction table if needed
+        // Example: populateTxnTable(data.transactions);
+      } else {
+        alert('Failed to load dashboard');
+      }
+    });
+  </script>
 </body>
 </html>
