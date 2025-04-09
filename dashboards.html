@@ -4,153 +4,124 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>GoldPips Dashboard</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    body {
-      background-color: #121212;
-      color: #fff;
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 2rem;
-    }
-
-    .dashboard-container {
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .card {
-      border-radius: 1rem;
-      background-color: #1e1e1e;
-      border: 1px solid #333;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-      color: #ffffff;
-    }
-
-    .card-header {
-      font-weight: bold;
-      font-size: 1.2rem;
-      color: #ffffff;
-      border-bottom: 1px solid #333;
-    }
-
-    .highlight {
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: #ffffff;
-    }
-
-    .stat-box {
-      height: 200px;
-    }
-
-    #roiChart {
-      width: 100%;
-      height: 300px;
-    }
-
-    .btn-danger {
-      background-color: #e74c3c;
-      border-color: #e74c3c;
-      color: #ffffff;
-    }
-
-    .btn-danger:hover {
-      background-color: #c0392b;
-    }
-  </style>
 </head>
-<body>
-  <div class="dashboard-container">
-    <h2 class="mb-4" id="userEmail">Welcome, User</h2>
+<body class="bg-gray-900 text-white font-sans">
 
-    <!-- Stat Boxes (2 per row, square layout) -->
-    <div class="row g-4 mb-4">
-      <div class="col-md-6">
-        <div class="card text-center stat-box d-flex align-items-center justify-content-center">
-          <div>
-            <div class="card-header">Plan</div>
-            <div class="highlight" id="plan">Premium</div>
-          </div>
-        </div>
+  <div class="max-w-5xl mx-auto px-4 py-6">
+    <h2 id="userEmail" class="text-2xl font-semibold mb-6">Welcome, User</h2>
+
+    <!-- Square Stat Boxes -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+      <div class="bg-gray-800 rounded-2xl p-6 text-center aspect-square flex flex-col justify-center">
+        <h4 class="text-lg font-medium mb-2">Plan</h4>
+        <div id="plan" class="text-2xl font-bold">—</div>
       </div>
-      <div class="col-md-6">
-        <div class="card text-center stat-box d-flex align-items-center justify-content-center">
-          <div>
-            <div class="card-header">ROI</div>
-            <div class="highlight" id="roi">12%</div>
-          </div>
-        </div>
+      <div class="bg-gray-800 rounded-2xl p-6 text-center aspect-square flex flex-col justify-center">
+        <h4 class="text-lg font-medium mb-2">ROI</h4>
+        <div id="roi" class="text-2xl font-bold">—</div>
       </div>
-      <div class="col-md-6">
-        <div class="card text-center stat-box d-flex align-items-center justify-content-center">
-          <div>
-            <div class="card-header">Referrals</div>
-            <div class="highlight" id="referral">10</div>
-          </div>
-        </div>
+      <div class="bg-gray-800 rounded-2xl p-6 text-center aspect-square flex flex-col justify-center">
+        <h4 class="text-lg font-medium mb-2">Referral</h4>
+        <div id="referral" class="text-2xl font-bold">—</div>
       </div>
-      <div class="col-md-6">
-        <div class="card text-center stat-box d-flex align-items-center justify-content-center">
-          <div>
-            <div class="card-header">Total Earned</div>
-            <div class="highlight" id="totalEarned">₹1200</div>
-          </div>
-        </div>
+      <div class="bg-gray-800 rounded-2xl p-6 text-center aspect-square flex flex-col justify-center">
+        <h4 class="text-lg font-medium mb-2">Total Earned</h4>
+        <div id="totalEarned" class="text-2xl font-bold">₹ —</div>
       </div>
     </div>
 
-    <!-- ROI Chart -->
-    <div class="card p-3 mb-4">
-      <div class="card-header">ROI Over Time</div>
-      <canvas id="roiChart"></canvas>
+    <!-- ROI Graph -->
+    <div class="bg-gray-800 rounded-2xl p-6 mb-8">
+      <h4 class="text-lg font-medium mb-4">ROI Over Time</h4>
+      <canvas id="roiChart" class="w-full h-64"></canvas>
+    </div>
+
+    <!-- Referral Section -->
+    <div class="bg-gray-800 rounded-2xl p-6 mb-6">
+      <h4 class="text-lg font-medium mb-4">Referral Info</h4>
+      <label for="refLink" class="block text-sm mb-1">Your Referral Link:</label>
+      <input type="text" id="refLink" class="w-full p-2 rounded bg-gray-700 text-white mb-3" readonly onclick="copyLink()">
+      <button class="w-full bg-white text-black py-2 rounded" onclick="copyLink()">Copy Link</button>
+      <div id="referrerInfo" class="mt-4 hidden">
+        <p><strong>Referred By:</strong> <span id="referrerName"></span></p>
+      </div>
     </div>
 
     <!-- Logout -->
-    <div class="text-end">
-      <button class="btn btn-danger" onclick="logout()">Logout</button>
+    <div class="text-right">
+      <button onclick="logout()" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded">Logout</button>
     </div>
   </div>
 
   <script>
-    // Fake data for graph demo
-    const roiChart = document.getElementById('roiChart').getContext('2d');
-    new Chart(roiChart, {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-        datasets: [{
-          label: 'ROI (%)',
-          data: [4, 6, 8, 10, 12],
-          borderColor: '#4caf50',
-          backgroundColor: 'rgba(76, 175, 80, 0.1)',
-          fill: true,
-          tension: 0.3
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            labels: { color: '#fff' }
-          }
-        },
-        scales: {
-          x: { ticks: { color: '#ccc' }, grid: { color: '#333' } },
-          y: { ticks: { color: '#ccc' }, grid: { color: '#333' } }
-        }
-      }
-    });
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user && user.name) {
+      document.getElementById('userEmail').textContent = `Welcome, ${user.name}`;
+    }
 
-    // Sample user
-    const user = JSON.parse(localStorage.getItem('user')) || { name: "User" };
-    document.getElementById('userEmail').innerText = `Welcome, ${user.name}`;
+    function copyLink() {
+      const refInput = document.getElementById('refLink');
+      refInput.select();
+      document.execCommand('copy');
+      alert('Referral link copied!');
+    }
 
-    function logout() {
+    async function logout() {
       localStorage.removeItem('token');
       window.location.href = 'index.html';
     }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const token = localStorage.getItem('token');
+      if (!token) return window.location.href = 'index.html';
+
+      const res = await fetch('http://localhost:5000/api/dashboard', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        document.getElementById('plan').textContent = data.plan;
+        document.getElementById('roi').textContent = data.roi + '%';
+        document.getElementById('referral').textContent = data.referrals;
+        document.getElementById('totalEarned').textContent = '₹ ' + data.totalEarned;
+        document.getElementById('refLink').value = data.referralLink;
+
+        if (data.referredBy) {
+          document.getElementById('referrerName').textContent = data.referredBy;
+          document.getElementById('referrerInfo').classList.remove('hidden');
+        }
+
+        const roiChart = new Chart(document.getElementById('roiChart'), {
+          type: 'line',
+          data: {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+            datasets: [{
+              label: 'ROI %',
+              data: data.roiHistory || [0, 5, 10, 15],
+              borderColor: '#10b981',
+              backgroundColor: 'rgba(16, 185, 129, 0.2)',
+              tension: 0.4,
+              fill: true,
+            }]
+          },
+          options: {
+            scales: {
+              y: { beginAtZero: true }
+            },
+            plugins: {
+              legend: {
+                labels: { color: 'white' }
+              }
+            }
+          }
+        });
+      } else {
+        alert('Failed to load dashboard');
+      }
+    });
   </script>
 </body>
 </html>
