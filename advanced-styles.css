@@ -1,0 +1,143 @@
+/* minimal-style.css */
+:root {
+  --bg: #0f0f0f;
+  --text: #f4f4f5;
+  --accent: #facc15;
+  --muted: #9ca3af;
+  --radius: 1rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+section {
+  padding: 4rem 1.5rem;
+  max-width: 768px;
+  margin: auto;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+p, li {
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+ul {
+  margin-left: 1.25rem;
+}
+
+.tagline {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.desc {
+  color: var(--muted);
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.button {
+  background-color: var(--accent);
+  color: #000;
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background-color: #ffe254;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+th, td {
+  text-align: left;
+  padding: 0.75rem;
+  border-bottom: 1px solid #333;
+}
+
+th {
+  color: var(--accent);
+}
+
+.note {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: 0.5rem;
+}
+
+blockquote {
+  font-style: italic;
+  color: var(--muted);
+  border-left: 4px solid var(--accent);
+  padding-left: 1rem;
+  margin-top: 1.5rem;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  max-width: 1024px;
+  margin: auto;
+}
+
+.logo {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-decoration: none;
+}
+
+.login-button {
+  color: var(--text);
+  text-decoration: none;
+  border: 1px solid var(--accent);
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: var(--accent);
+  color: #000;
+}
